@@ -6,14 +6,8 @@
 	diagnostics: . | map({
 		message: .message,
 		code: {
-			value: .code,
-			url: (
-				if .code | startswith("SC") then
-					"https://github.com/koalaman/shellcheck/wiki/\(.code)"
-				else
-					null
-				end
-			),
+			value: "SC\(.code)",
+			url: "https://github.com/koalaman/shellcheck/wiki/SC\(.code)",
 		},
 		location: {
 			path: .file,
@@ -21,6 +15,10 @@
 				start: {
 					line: .line,
 					column: .column
+				},
+				end: {
+					line: .endLine,
+					column: .endColumn
 				}
 			}
 		},
