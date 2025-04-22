@@ -13,6 +13,7 @@ tasks:
     deps: [aqua]
     cmds:
     - task: format
+
   aqua:
     run: once
     sources:
