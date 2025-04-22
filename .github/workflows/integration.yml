@@ -12,20 +12,20 @@ jobs:
   ##############################################################################
   # Linter
   ##############################################################################
-  # linter:
-  #   name: Linter
-  #   permissions:
-  #     actions: read
-  #     checks: write
-  #     contents: read
-  #     pull-requests: write
-  #   uses: ./.github/workflows/linter.yml
+  linter:
+    name: Linter
+    permissions:
+      actions: read
+      checks: write
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/linter.yml
   ##############################################################################
   # Status Check
   ##############################################################################
   ci:
-    # needs:
-    # - linter
+    needs:
+    - linter
     name: CI
     runs-on: ubuntu-latest
     timeout-minutes: 3
