@@ -25,5 +25,5 @@ runner:
     - '%.%#action_file_path=%f error="%m" policy_name=%.%#'
     - '%-G%.%#'
   hadolint:
-    cmd: fd -H -E .git/ -t f Dockerfile -x hadolint -f json {} | jq -f scripts/reviewdog-hadolint.jq
+    cmd: fd -H -E .git/ -E .task/ -t f -g Dockerfile -X hadolint -f json {} | jq -f scripts/reviewdog-hadolint.jq
     format: rdjson
