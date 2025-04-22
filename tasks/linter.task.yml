@@ -10,6 +10,7 @@ tasks:
     silent: true
     cmds:
     - task: editorconfig-checker
+    - task: hadolint
 
   editorconfig-checker:
     desc: '{{.TASK}}'
@@ -21,5 +22,16 @@ tasks:
     - .task/.done_{{.TASK}}
     cmds:
     - ec .
+    - cmd: touch .task/.done_{{.TASK}}
+      silent: true
+
+  hadolint:
+    desc: '{{.TASK}}'
+    sources:
+    - 'Dockerfile'
+    generates:
+    - .task/.done_{{.TASK}}
+    cmds:
+    - hadolint Dockerfile
     - cmd: touch .task/.done_{{.TASK}}
       silent: true

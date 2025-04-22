@@ -1,0 +1,3 @@
+---
+packages:
+- name: hadolint/hadolint@v2.12.0
