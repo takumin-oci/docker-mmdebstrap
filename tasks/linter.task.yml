@@ -11,6 +11,7 @@ tasks:
     cmds:
     - task: editorconfig-checker
     - task: actionlint
+    - task: ghalint
     - task: hadolint
 
   editorconfig-checker:
@@ -35,6 +36,19 @@ tasks:
     - .task/.done_{{.TASK}}
     cmds:
     - actionlint
+    - cmd: touch .task/.done_{{.TASK}}
+      silent: true
+
+  ghalint:
+    desc: '{{.TASK}}'
+    sources:
+    - '.github/**/*.yml'
+    - '.github/**/*.yaml'
+    generates:
+    - .task/.done_{{.TASK}}
+    cmds:
+    - ghalint run
+    - ghalint act
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
 
