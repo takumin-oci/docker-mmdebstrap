@@ -8,7 +8,7 @@ runner:
     - '%-Q'
     - '%-G%.%#'
   shellcheck:
-    cmd: fd -H -E .git/ -t f -e sh -e bash -x shellcheck -f json {} | jq -f scripts/reviewdog-shellcheck.jq
+    cmd: fd -H -E .git/ -E .task/ -t f -e sh -e bash -X shellcheck -f json {} | jq -M -f scripts/reviewdog-shellcheck.jq
     format: rdjson
   actionlint:
     cmd: actionlint -shellcheck shellcheck -oneline -no-color
