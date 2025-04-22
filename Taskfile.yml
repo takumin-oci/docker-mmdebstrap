@@ -10,14 +10,16 @@ includes:
 
 tasks:
   default:
+    desc: '{{.TASK}}'
     silent: true
+    aliases: [all]
     deps: [aqua]
     cmds:
     - task: format
     - task: linter
 
   aqua:
-    run: once
+    desc: '{{.TASK}}'
     sources:
     - aqua/*.yaml
     - aqua/**/*.yaml

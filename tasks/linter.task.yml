@@ -6,12 +6,13 @@ version: '3'
 
 tasks:
   default:
+    desc: '{{.TASK}}'
     silent: true
     cmds:
     - task: editorconfig-checker
 
   editorconfig-checker:
-    run: once
+    desc: '{{.TASK}}'
     sources:
     - '**/*'
     - exclude: '.git/**/*'

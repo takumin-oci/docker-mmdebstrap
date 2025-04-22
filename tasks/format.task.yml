@@ -6,6 +6,7 @@ version: '3'
 
 tasks:
   default:
+    desc: '{{.TASK}}'
     silent: true
     cmds:
     - task: shfmt
@@ -13,7 +14,7 @@ tasks:
     - task: pinact
 
   shfmt:
-    run: once
+    desc: '{{.TASK}}'
     sources:
     - '**/*.sh'
     - '**/*.bash'
@@ -27,7 +28,7 @@ tasks:
       silent: true
 
   yamlfmt:
-    run: once
+    desc: '{{.TASK}}'
     sources:
     - '**/*.yml'
     - '**/*.yaml'
@@ -41,7 +42,7 @@ tasks:
       silent: true
 
   pinact:
-    run: once
+    desc: '{{.TASK}}'
     sources:
     - '.github/**/*.yml'
     - '.github/**/*.yaml'
