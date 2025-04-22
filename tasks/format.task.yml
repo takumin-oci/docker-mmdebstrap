@@ -12,6 +12,7 @@ tasks:
     - task: shfmt
     - task: yamlfmt
     - task: pinact
+    - task: dockerfmt
 
   shfmt:
     desc: '{{.TASK}}'
@@ -50,5 +51,16 @@ tasks:
     - .task/.done_{{.TASK}}
     cmds:
     - pinact run
+    - cmd: touch .task/.done_{{.TASK}}
+      silent: true
+
+  dockerfmt:
+    desc: '{{.TASK}}'
+    sources:
+    - 'Dockerfile'
+    generates:
+    - .task/.done_{{.TASK}}
+    cmds:
+    - dockerfmt -w -n Dockerfile
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
