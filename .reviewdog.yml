@@ -8,7 +8,7 @@ runner:
     - '%-Q'
     - '%-G%.%#'
   shellcheck:
-    cmd: fd -H -E .git/ -t f -e sh -e bash -X shellcheck -f gcc -C never
+    cmd: fd -H -E .git/ -t f -e sh -e bash -X shellcheck -f gcc
     errorformat:
     - '%f:%l:%c: %m [SC%n]'
   actionlint:
