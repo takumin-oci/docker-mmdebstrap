@@ -14,7 +14,7 @@
 					null
 				end
 			),
-		} ,
+		},
 		location: {
 			path: .file,
 			range: {
