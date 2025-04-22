@@ -5,6 +5,7 @@
 version: '3'
 
 includes:
+  aqua: ./tasks/aqua.task.yml
   format: ./tasks/format.task.yml
   reviewdog: ./tasks/reviewdog.task.yml
 
@@ -13,19 +14,7 @@ tasks:
     desc: '{{.TASK}}'
     silent: true
     aliases: [all]
-    deps: [aqua]
     cmds:
+    - task: aqua
     - task: format
     - task: reviewdog
-
-  aqua:
-    desc: '{{.TASK}}'
-    sources:
-    - aqua/*.yaml
-    - aqua/**/*.yaml
-    generates:
-    - .task/.done_{{.TASK}}
-    cmds:
-    - aqua install --all
-    - cmd: touch .task/.done_{{.TASK}}
-      silent: true
