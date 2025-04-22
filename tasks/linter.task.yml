@@ -4,26 +4,21 @@
 
 version: '3'
 
-includes:
-  format: ./tasks/format.task.yml
-  linter: ./tasks/linter.task.yml
-
 tasks:
   default:
     silent: true
-    deps: [aqua]
     cmds:
-    - task: format
-    - task: linter
+    - task: editorconfig-checker
 
-  aqua:
+  editorconfig-checker:
     run: once
     sources:
-    - aqua/*.yaml
-    - aqua/**/*.yaml
+    - '**/*'
+    - exclude: '.git/**/*'
+    - exclude: '.task/**/*'
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - aqua install --all
+    - ec .
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
