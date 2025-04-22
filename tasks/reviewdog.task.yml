@@ -4,6 +4,12 @@
 
 version: '3'
 
+vars:
+  REVIEWDOG_ARGS:
+  - -filter-mode 'nofilter'
+  - -log-level 'warning'
+  - -fail-level 'any'
+
 tasks:
   default:
     desc: '{{.TASK}}'
@@ -12,8 +18,18 @@ tasks:
     - task: editorconfig-checker
     - task: shellcheck
     - task: actionlint
-    - task: ghalint
-    - task: hadolint
+    - task: ghalint-run
+    - task: ghalint-act
+
+  reviewdog:
+    internal: true
+    label: 'reviewdog:{{.REVIEWDOG_RUNNER}}'
+    cmds:
+    - >-
+      reviewdog
+      -runners '{{.REVIEWDOG_RUNNER}}'
+      -reporter '{{env "REVIEWDOG_REPORTER" | default "local"}}'
+      {{.REVIEWDOG_ARGS | join " "}}
 
   editorconfig-checker:
     desc: '{{.TASK}}'
@@ -24,7 +40,9 @@ tasks:
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - ec .
+    - task: reviewdog
+      vars:
+        REVIEWDOG_RUNNER: '{{splitList ":" .TASK | last}}'
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
 
@@ -38,7 +56,9 @@ tasks:
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - fd -H -E .git/ -t f '.(sh|bash)' -X shellcheck
+    - task: reviewdog
+      vars:
+        REVIEWDOG_RUNNER: '{{splitList ":" .TASK | last}}'
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
 
@@ -50,11 +70,13 @@ tasks:
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - actionlint
+    - task: reviewdog
+      vars:
+        REVIEWDOG_RUNNER: '{{splitList ":" .TASK | last}}'
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
 
-  ghalint:
+  ghalint-run:
     desc: '{{.TASK}}'
     sources:
     - '.github/**/*.yml'
@@ -62,18 +84,22 @@ tasks:
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - ghalint run
-    - ghalint act
+    - task: reviewdog
+      vars:
+        REVIEWDOG_RUNNER: '{{splitList ":" .TASK | last}}'
     - cmd: touch .task/.done_{{.TASK}}
       silent: true
 
-  hadolint:
+  ghalint-act:
     desc: '{{.TASK}}'
     sources:
-    - 'Dockerfile'
+    - '.github/**/*.yml'
+    - '.github/**/*.yaml'
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - hadolint Dockerfile
+    - task: reviewdog
+      vars:
+        REVIEWDOG_RUNNER: '{{splitList ":" .TASK | last}}'
     - cmd: touch .task/.done_{{.TASK}}
       silent: true

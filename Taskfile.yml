@@ -6,7 +6,7 @@ version: '3'
 
 includes:
   format: ./tasks/format.task.yml
-  linter: ./tasks/linter.task.yml
+  reviewdog: ./tasks/reviewdog.task.yml
 
 tasks:
   default:
@@ -16,7 +16,7 @@ tasks:
     deps: [aqua]
     cmds:
     - task: format
-    - task: linter
+    - task: reviewdog
 
   aqua:
     desc: '{{.TASK}}'
