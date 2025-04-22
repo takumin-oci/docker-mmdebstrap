@@ -1,0 +1,49 @@
+---
+name: CI
+on:
+  push:
+    branches:
+    - main
+    tags:
+    - 'v*'
+  pull_request:
+permissions: {}
+jobs:
+  ##############################################################################
+  # Linter
+  ##############################################################################
+  # linter:
+  #   name: Linter
+  #   permissions:
+  #     actions: read
+  #     checks: write
+  #     contents: read
+  #     pull-requests: write
+  #   uses: ./.github/workflows/linter.yml
+  ##############################################################################
+  # Status Check
+  ##############################################################################
+  ci:
+    # needs:
+    # - linter
+    name: CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    if: ${{ failure() || cancelled() }}
+    steps:
+    - name: Failure Status
+      run: exit 1
+  ##############################################################################
+  # Timeline
+  ##############################################################################
+  timeline:
+    needs: ci
+    name: Timeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      actions: read
+    if: always()
+    steps:
+    - name: Actions Timeline
+      uses: Kesin11/actions-timeline@427ee2cf860166e404d0d69b4f2b24012bb7af4f # v2.2.3
