@@ -1,0 +1,53 @@
+---
+# https://taskfile.dev
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+tasks:
+  default:
+    silent: true
+    cmds:
+    - task: shfmt
+    - task: yamlfmt
+    - task: pinact
+
+  shfmt:
+    run: once
+    sources:
+    - '**/*.sh'
+    - '**/*.bash'
+    - exclude: '.git/**/*'
+    - exclude: '.task/**/*'
+    generates:
+    - .task/.done_{{.TASK}}
+    cmds:
+    - shfmt -w .
+    - cmd: touch .task/.done_{{.TASK}}
+      silent: true
+
+  yamlfmt:
+    run: once
+    sources:
+    - '**/*.yml'
+    - '**/*.yaml'
+    - exclude: '.git/**/*'
+    - exclude: '.task/**/*'
+    generates:
+    - .task/.done_{{.TASK}}
+    cmds:
+    - yamlfmt .
+    - cmd: touch .task/.done_{{.TASK}}
+      silent: true
+
+  pinact:
+    run: once
+    sources:
+    - '.github/**/*.yml'
+    - '.github/**/*.yaml'
+    generates:
+    - .task/.done_{{.TASK}}
+    cmds:
+    - pinact run
+    - cmd: touch .task/.done_{{.TASK}}
+      silent: true
