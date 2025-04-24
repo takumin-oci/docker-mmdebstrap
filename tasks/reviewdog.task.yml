@@ -26,7 +26,7 @@ tasks:
     desc: '{{.TASK}}'
     silent: true
     cmds:
-    - task -aj | jq -f scripts/actions-matrix.jq
+    - task -aj | jq -cM -f scripts/actions-matrix.jq
 
   reviewdog:
     internal: true
