@@ -23,7 +23,7 @@ tasks:
     desc: '{{.TASK}}'
     dir: '{{.ROOT_DIR}}'
     deps:
-    - task: aqua:install
+    - task: aqua:install:tag:{{.TASK}}
       silent: true
     sources:
     - '**/*.sh'
@@ -43,7 +43,7 @@ tasks:
     desc: '{{.TASK}}'
     dir: '{{.ROOT_DIR}}'
     deps:
-    - task: aqua:install
+    - task: aqua:install:tag:{{.TASK}}
       silent: true
     sources:
     - '**/*.yml'
@@ -63,7 +63,7 @@ tasks:
     desc: '{{.TASK}}'
     dir: '{{.ROOT_DIR}}'
     deps:
-    - task: aqua:install
+    - task: aqua:install:tag:{{.TASK}}
       silent: true
     sources:
     - '.github/**/*.yml'
@@ -79,7 +79,7 @@ tasks:
     desc: '{{.TASK}}'
     dir: '{{.ROOT_DIR}}'
     deps:
-    - task: aqua:install
+    - task: aqua:install:tag:{{.TASK}}
       silent: true
     sources:
     - '**/Dockerfile'
