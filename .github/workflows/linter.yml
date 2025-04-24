@@ -28,6 +28,11 @@ jobs:
     - name: Generate Matrix
       id: matrix
       run: echo "result=$(task reviewdog:matrix)" >> "$GITHUB_OUTPUT"
+    - name: Check Matrix
+      env:
+        REVIEWDOG_MATRIX: ${{ steps.matrix.outputs.result }}
+      run: |
+        echo "${REVIEWDOG_MATRIX}" | jq
   ##############################################################################
   # Reviewdog Runner
   ##############################################################################
