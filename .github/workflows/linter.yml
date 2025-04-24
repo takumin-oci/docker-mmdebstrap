@@ -48,7 +48,17 @@ jobs:
       with:
         aqua_version: v2.50.0
         aqua_opts: -a
+    - name: Reviewdog reporter
+      id: reporter
+      run: |-
+        case "${{ github.event_name }}" in
+        "push" )                echo "type=github-check" >> "$GITHUB_OUTPUT" ;;
+        "pull_request" )        echo "type=github-pr-review" >> "$GITHUB_OUTPUT" ;;
+        "pull_request_target" ) echo "type=github-pr-review" >> "$GITHUB_OUTPUT" ;;
+        * )                     echo "type=local" >> "$GITHUB_OUTPUT" ;;
+        esac
     - name: Running reviewdog
       run: task "${REVIEWDOG_TARGET}"
       env:
         REVIEWDOG_TARGET: ${{ matrix.target }}
+        REVIEWDOG_REPORTER: ${{ steps.reporter.outputs.type }}
