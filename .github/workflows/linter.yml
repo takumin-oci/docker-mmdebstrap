@@ -49,4 +49,6 @@ jobs:
         aqua_version: v2.50.0
         aqua_opts: -a
     - name: Running reviewdog
-      run: task ${{ matrix.target }}
+      run: task "${REVIEWDOG_TARGET}"
+      env:
+        REVIEWDOG_TARGET: ${{ matrix.target }}
