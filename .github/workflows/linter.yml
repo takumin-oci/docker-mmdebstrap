@@ -62,3 +62,4 @@ jobs:
       env:
         REVIEWDOG_TARGET: ${{ matrix.target }}
         REVIEWDOG_REPORTER: ${{ steps.reporter.outputs.type }}
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
