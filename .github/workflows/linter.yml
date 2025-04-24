@@ -38,6 +38,11 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix: ${{ fromJson(needs.matrix.outputs.targets) }}
+    permissions:
+      actions: read
+      checks: write
+      contents: read
+      pull-requests: write
     steps:
     - name: Checkout
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
