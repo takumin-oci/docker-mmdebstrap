@@ -44,7 +44,7 @@ tasks:
       reviewdog
       -runners '{{.REVIEWDOG_RUNNER}}'
       -reporter '{{env "REVIEWDOG_REPORTER" | default "local"}}'
-      {{.REVIEWDOG_ARGS | join " "}}
+      {{env "REVIEWDOG_ARGS" | default (.REVIEWDOG_ARGS | join " ")}}
 
   editorconfig-checker:
     desc: '{{.TASK}}'
