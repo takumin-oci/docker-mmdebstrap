@@ -13,9 +13,12 @@ tasks:
 
   install:
     desc: '{{.TASK}}'
+    dir: '{{.ROOT_DIR}}'
     sources:
-    - aqua/*.yaml
-    - aqua/**/*.yaml
+    - .aqua/*.yml
+    - .aqua/*.yaml
+    - .aqua/**/*.yml
+    - .aqua/**/*.yaml
     generates:
     - .task/.done_{{.TASK}}
     cmds:
