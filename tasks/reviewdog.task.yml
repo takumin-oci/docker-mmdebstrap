@@ -22,6 +22,12 @@ tasks:
     - task: ghalint-act
     - task: hadolint
 
+  matrix:
+    desc: '{{.TASK}}'
+    silent: true
+    cmds:
+    - exit 0
+
   reviewdog:
     internal: true
     label: 'reviewdog:{{.REVIEWDOG_RUNNER}}'
