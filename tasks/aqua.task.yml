@@ -22,6 +22,6 @@ tasks:
     generates:
     - .task/.done_{{.TASK}}
     cmds:
-    - aqua install --all
+    - aqua install
     - cmd: touch .task/.done_{{.TASK}}
       silent: true

@@ -4,6 +4,11 @@
 
 version: '3'
 
+includes:
+  aqua:
+    taskfile: aqua.task.yml
+    internal: true
+
 tasks:
   default:
     desc: '{{.TASK}}'
@@ -16,6 +21,10 @@ tasks:
 
   shfmt:
     desc: '{{.TASK}}'
+    dir: '{{.ROOT_DIR}}'
+    deps:
+    - task: aqua:install
+      silent: true
     sources:
     - '**/*.sh'
     - '**/*.bash'
@@ -32,6 +41,10 @@ tasks:
 
   yamlfmt:
     desc: '{{.TASK}}'
+    dir: '{{.ROOT_DIR}}'
+    deps:
+    - task: aqua:install
+      silent: true
     sources:
     - '**/*.yml'
     - '**/*.yaml'
@@ -48,6 +61,10 @@ tasks:
 
   pinact:
     desc: '{{.TASK}}'
+    dir: '{{.ROOT_DIR}}'
+    deps:
+    - task: aqua:install
+      silent: true
     sources:
     - '.github/**/*.yml'
     - '.github/**/*.yaml'
@@ -60,6 +77,10 @@ tasks:
 
   dockerfmt:
     desc: '{{.TASK}}'
+    dir: '{{.ROOT_DIR}}'
+    deps:
+    - task: aqua:install
+      silent: true
     sources:
     - '**/Dockerfile'
     - '.*/**/Dockerfile'
