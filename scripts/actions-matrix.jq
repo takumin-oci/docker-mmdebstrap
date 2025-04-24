@@ -7,7 +7,7 @@
 				) | not
 			)
 		) | {
-			name: .name
+			target: .name
 		}
 	]
 }
