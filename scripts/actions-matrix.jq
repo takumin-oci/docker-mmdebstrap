@@ -7,6 +7,7 @@
 				) | not
 			)
 		) | {
+			name: .name | split(":") | last,
 			target: .name
 		}
 	]

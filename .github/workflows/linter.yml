@@ -33,7 +33,7 @@ jobs:
   ##############################################################################
   reviewdog:
     needs: matrix
-    name: Reviewdog (${{ matrix.target }})
+    name: Reviewdog (${{ matrix.name }})
     runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
