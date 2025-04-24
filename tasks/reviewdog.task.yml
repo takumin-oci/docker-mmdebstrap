@@ -42,6 +42,7 @@ tasks:
     desc: '{{.TASK}}'
     sources:
     - '**/*'
+    - '.*/**/*'
     - exclude: '.git/**/*'
     - exclude: '.task/**/*'
     generates:
@@ -58,6 +59,8 @@ tasks:
     sources:
     - '**/*.sh'
     - '**/*.bash'
+    - '.*/**/*.sh'
+    - '.*/**/*.bash'
     - exclude: '.git/**/*'
     - exclude: '.task/**/*'
     generates:
@@ -114,7 +117,10 @@ tasks:
   hadolint:
     desc: '{{.TASK}}'
     sources:
-    - 'Dockerfile'
+    - '**/Dockerfile'
+    - '.*/**/Dockerfile'
+    - exclude: '.git/**/*'
+    - exclude: '.task/**/*'
     generates:
     - .task/.done_{{.TASK}}
     cmds:

@@ -19,6 +19,8 @@ tasks:
     sources:
     - '**/*.sh'
     - '**/*.bash'
+    - '.*/**/*.sh'
+    - '.*/**/*.bash'
     - exclude: '.git/**/*'
     - exclude: '.task/**/*'
     generates:
@@ -33,6 +35,8 @@ tasks:
     sources:
     - '**/*.yml'
     - '**/*.yaml'
+    - '.*/**/*.yml'
+    - '.*/**/*.yaml'
     - exclude: '.git/**/*'
     - exclude: '.task/**/*'
     generates:
@@ -57,7 +61,10 @@ tasks:
   dockerfmt:
     desc: '{{.TASK}}'
     sources:
-    - 'Dockerfile'
+    - '**/Dockerfile'
+    - '.*/**/Dockerfile'
+    - exclude: '.git/**/*'
+    - exclude: '.task/**/*'
     generates:
     - .task/.done_{{.TASK}}
     cmds:
