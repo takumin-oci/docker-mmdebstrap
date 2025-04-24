@@ -28,3 +28,13 @@ jobs:
     - name: Generate Matrix
       id: matrix
       run: echo "result=$(task reviewdog:matrix)" >> "$GITHUB_OUTPUT"
+  ##############################################################################
+  # Reviewdog Runner
+  ##############################################################################
+  reviewdog:
+    needs: matrix
+    name: Reviewdog (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix: ${{ fromJson(needs.matrix.outputs.targets) }}
